@@ -1,9 +1,8 @@
 package dev.ultreon.quentangle.mc.platform;
 
 import com.mojang.brigadier.Command;
-import dev.ultreon.quantum.api.neocommand.CommandRegistrant;
 import dev.ultreon.quentangle.Game;
-import dev.ultreon.quentangle.api.block.IBlocksApi;
+import dev.ultreon.quentangle.api.block.IBlocks;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.mc.components.ComponentManager;
 import dev.ultreon.quentangle.mc.network.NetworkRegistry;
@@ -50,7 +49,7 @@ public interface IMcPlatform extends IPlatform {
     }
 
     @Override
-    default IBlocksApi getBlocksApi() {
+    default IBlocks getBlocksApi() {
         throw new UnsupportedOperationException("Blocks API is not implemented for Minecraft");
     }
 

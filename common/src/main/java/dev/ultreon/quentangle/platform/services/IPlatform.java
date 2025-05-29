@@ -2,7 +2,7 @@ package dev.ultreon.quentangle.platform.services;
 
 import dev.ultreon.quentangle.Game;
 import dev.ultreon.quentangle.ModLoader;
-import dev.ultreon.quentangle.api.block.IBlocksApi;
+import dev.ultreon.quentangle.api.block.IBlocks;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.platform.IMod;
 import dev.ultreon.quentangle.registry.INamespaceID;
@@ -42,7 +42,7 @@ public interface IPlatform {
 
     int getDefaultMaxStackSize();
 
-    IBlocksApi getBlocksApi();
+    IBlocks getBlocksApi();
 
     IItemsApi getItemsApi();
 

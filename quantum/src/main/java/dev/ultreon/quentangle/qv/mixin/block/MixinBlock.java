@@ -11,12 +11,12 @@ import dev.ultreon.quantum.world.UseResult;
 import dev.ultreon.quantum.world.World;
 import dev.ultreon.quantum.world.WorldAccess;
 import dev.ultreon.quantum.world.vec.BlockVec;
-import dev.ultreon.quentangle.api.block.IBlockApi;
-import dev.ultreon.quentangle.api.block.IBlockStateApi;
-import dev.ultreon.quentangle.api.player.IPlayerApi;
-import dev.ultreon.quentangle.api.world.IWorldApi;
-import dev.ultreon.quentangle.util.IBlockHitApi;
-import dev.ultreon.quentangle.util.IHitApi;
+import dev.ultreon.quentangle.api.block.IBlock;
+import dev.ultreon.quentangle.api.block.IBlockState;
+import dev.ultreon.quentangle.api.player.IPlayer;
+import dev.ultreon.quentangle.api.world.IWorld;
+import dev.ultreon.quentangle.util.IBlockHit;
+import dev.ultreon.quentangle.util.IHit;
 import dev.ultreon.quentangle.util.IPos;
 import dev.ultreon.quentangle.util.InteractResult;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Block.class)
-public abstract class MixinBlock implements IBlockApi {
+public abstract class MixinBlock implements IBlock {
 
     @Shadow
     public abstract UseResult use(@NotNull WorldAccess world, @NotNull Player player, @NotNull Item item, @NotNull BlockVec pos);
@@ -35,7 +35,7 @@ public abstract class MixinBlock implements IBlockApi {
     @Shadow public abstract BlockState onPlacedBy(BlockState blockMeta, BlockVec at, UseItemContext context);
 
     @Override
-    public InteractResult quent$use(IBlockStateApi state, IWorldApi world, IPos pos, IPlayerApi player, IBlockHitApi hit) {
+    public InteractResult quent$use(IBlockState state, IWorld world, IPos pos, IPlayer player, IBlockHit hit) {
         return switch (use((WorldAccess) world, (Player) player, ((Player)player).getSelectedItem().getItem(), ((BlockHit)hit).getBlockVec())) {
             case ALLOW -> InteractResult.SUCCESS;
             case DENY -> InteractResult.FAIL;
@@ -44,13 +44,13 @@ public abstract class MixinBlock implements IBlockApi {
     }
 
     @Override
-    public boolean quent$onBreak(IBlockStateApi state, IWorldApi world, IPos pos, IPlayerApi player) {
+    public boolean quent$onBreak(IBlockState state, IWorld world, IPos pos, IPlayer player) {
         onDestroy((World) world, new BlockVec(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ()), (BlockState) state, (Player) player);
         return true;
     }
 
     @Override
-    public IBlockStateApi quent$onPlace(IBlockStateApi state, IBlockStateApi newState, IWorldApi world, IPos pos, IPlayerApi player, IHitApi hit) {
+    public IBlockState quent$onPlace(IBlockState state, IBlockState newState, IWorld world, IPos pos, IPlayer player, IHit hit) {
         BlockState blockState = onPlacedBy((BlockState) state, new BlockVec(pos.getBlockX(), pos.getBlockY(), pos.getBlockZ()), new UseItemContext(
                 (World) world,
                 (Player) player,
@@ -58,11 +58,11 @@ public abstract class MixinBlock implements IBlockApi {
                 ((Player) player).getSelectedItem(),
                 1f
         ));
-        return (IBlockStateApi) blockState;
+        return (IBlockState) blockState;
     }
 
     @Override
-    public IBlockStateApi quent$defaultState() {
+    public IBlockState quent$defaultState() {
         return null;
     }
 }

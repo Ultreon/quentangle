@@ -7,7 +7,7 @@ import dev.ultreon.quantum.menu.MenuType;
 import dev.ultreon.quantum.world.WorldAccess;
 import dev.ultreon.quantum.world.container.Container;
 import dev.ultreon.quantum.world.vec.BlockVec;
-import dev.ultreon.quentangle.api.player.IInventoryApi;
+import dev.ultreon.quentangle.api.player.IInventory;
 import dev.ultreon.quentangle.api.item.IItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Inventory.class)
-public abstract class MixinInventory extends ContainerMenu implements IInventoryApi {
+public abstract class MixinInventory extends ContainerMenu implements IInventory {
     @Shadow public abstract void clear();
 
     protected MixinInventory(@NotNull MenuType<?> type, @NotNull WorldAccess world, @NotNull Entity entity, @Nullable BlockVec pos, int size, @Nullable Container<?> container) {

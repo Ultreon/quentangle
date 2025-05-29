@@ -6,7 +6,7 @@ import dev.ultreon.quantum.client.gui.Screen;
 import dev.ultreon.quantum.util.Color;
 import dev.ultreon.quantum.util.NamespaceID;
 import dev.ultreon.quantum.util.RgbColor;
-import dev.ultreon.quentangle.api.client.gui.IGuiRendererApi;
+import dev.ultreon.quentangle.api.client.gui.IGuiRenderer;
 import dev.ultreon.quentangle.qv.mixin.accessor.ScreenAccessor;
 import dev.ultreon.quentangle.registry.INamespaceID;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(Renderer.class)
-public abstract class MixinRenderer implements IGuiRendererApi {
+public abstract class MixinRenderer implements IGuiRenderer {
     @Unique
     private com.badlogic.gdx.graphics.Color tmpColor;
 
@@ -103,7 +103,7 @@ public abstract class MixinRenderer implements IGuiRendererApi {
     }
 
     @Override
-    public void quent$drawBackground(IGuiRendererApi renderer, int mouseY, int y, float delta) {
+    public void quent$drawBackground(IGuiRenderer renderer, int mouseY, int y, float delta) {
         Screen screen = QuantumClient.get().screen;
         if (screen == null) throw new IllegalStateException("Cannot draw background without a screen!");
 

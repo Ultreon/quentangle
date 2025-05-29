@@ -1,9 +1,9 @@
 package dev.ultreon.quentangle.mc.mixin.world;
 
-import dev.ultreon.quentangle.api.block.IBlockStateApi;
-import dev.ultreon.quentangle.api.world.IClientWorldApi;
-import dev.ultreon.quentangle.api.world.IServerWorldApi;
-import dev.ultreon.quentangle.api.world.IWorldApi;
+import dev.ultreon.quentangle.api.block.IBlockState;
+import dev.ultreon.quentangle.api.world.IClientWorld;
+import dev.ultreon.quentangle.api.world.IServerWorld;
+import dev.ultreon.quentangle.api.world.IWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Level.class)
-public abstract class MixinLevel implements IWorldApi {
+public abstract class MixinLevel implements IWorld {
 
     @Shadow public abstract BlockState getBlockState(BlockPos pos);
 
@@ -22,22 +22,22 @@ public abstract class MixinLevel implements IWorldApi {
     @Shadow public abstract boolean destroyBlock(BlockPos pos, boolean dropBlock, @Nullable Entity entity, int recursionLeft);
 
     @Override
-    public @Nullable IServerWorldApi quent$asServerWorld() {
-        return this instanceof IServerWorldApi ? (IServerWorldApi) this : null;
+    public @Nullable IServerWorld quent$asServerWorld() {
+        return this instanceof IServerWorld ? (IServerWorld) this : null;
     }
 
     @Override
-    public @Nullable IClientWorldApi quent$asClientWorld() {
-        return this instanceof IClientWorldApi ? (IClientWorldApi) this : null;
+    public @Nullable IClientWorld quent$asClientWorld() {
+        return this instanceof IClientWorld ? (IClientWorld) this : null;
     }
 
     @Override
-    public IBlockStateApi quent$getBlock(int x, int y, int z) {
-        return (IBlockStateApi) getBlockState(new BlockPos(x, y, z));
+    public IBlockState quent$getBlock(int x, int y, int z) {
+        return (IBlockState) getBlockState(new BlockPos(x, y, z));
     }
 
     @Override
-    public void quent$setBlock(int x, int y, int z, IBlockStateApi block) {
+    public void quent$setBlock(int x, int y, int z, IBlockState block) {
         setBlock(new BlockPos(x, y, z), (BlockState) block, 3);
     }
 

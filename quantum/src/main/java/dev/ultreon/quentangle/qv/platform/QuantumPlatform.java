@@ -16,12 +16,12 @@ import dev.ultreon.quantum.world.vec.BlockVec;
 import dev.ultreon.quentangle.CommonConstants;
 import dev.ultreon.quentangle.Game;
 import dev.ultreon.quentangle.ModLoader;
-import dev.ultreon.quentangle.api.block.IBlockApi;
-import dev.ultreon.quentangle.api.block.IBlockStateApi;
-import dev.ultreon.quentangle.api.block.IBlocksApi;
-import dev.ultreon.quentangle.api.item.IItemApi;
-import dev.ultreon.quentangle.api.player.IPlayerApi;
-import dev.ultreon.quentangle.api.world.IWorldApi;
+import dev.ultreon.quentangle.api.block.IBlock;
+import dev.ultreon.quentangle.api.block.IBlockState;
+import dev.ultreon.quentangle.api.block.IBlocks;
+import dev.ultreon.quentangle.api.item.IItem;
+import dev.ultreon.quentangle.api.player.IPlayer;
+import dev.ultreon.quentangle.api.world.IWorld;
 import dev.ultreon.quentangle.block.IBlockFactory;
 import dev.ultreon.quentangle.item.IItemsApi;
 import dev.ultreon.quentangle.platform.IMod;
@@ -42,33 +42,33 @@ import java.util.Optional;
 
 public class QuantumPlatform implements IPlatform {
 
-    private final IBlocksApi blocksApi = new IBlocksApi() {
+    private final IBlocks blocksApi = new IBlocks() {
         @Override
-        public IBlockApi getAir() {
-            return (IBlockApi) Blocks.AIR;
+        public IBlock getAir() {
+            return (IBlock) Blocks.AIR;
         }
 
         @Override
-        public IBlockApi getStone() {
-            return (IBlockApi) Blocks.STONE;
+        public IBlock getStone() {
+            return (IBlock) Blocks.STONE;
         }
 
         @Override
-        public IBlockApi getDirt() {
-            return (IBlockApi) Blocks.DIRT;
+        public IBlock getDirt() {
+            return (IBlock) Blocks.DIRT;
         }
 
         @Override
-        public IBlockApi getGrass() {
-            return (IBlockApi) Blocks.GRASS_BLOCK;
+        public IBlock getGrass() {
+            return (IBlock) Blocks.GRASS_BLOCK;
         }
 
         @Override
-        public IBlockApi create(IBlockFactory factory) {
-            return (IBlockApi) (Object) new Block() {
+        public IBlock create(IBlockFactory factory) {
+            return (IBlock) (Object) new Block() {
                 @Override
                 public @NotNull UseResult use(@NotNull WorldAccess world, @NotNull Player player, @NotNull Item item, @NotNull BlockVec pos) {
-                    InteractResult use = factory.use((IBlockStateApi) world.get(pos), (IWorldApi) world, new dev.ultreon.quentangle.util.BlockVec(pos.x, pos.y, pos.z), (IPlayerApi) player, new EmptyBlockHitApi());
+                    InteractResult use = factory.use((IBlockState) world.get(pos), (IWorld) world, new dev.ultreon.quentangle.util.BlockVec(pos.x, pos.y, pos.z), (IPlayer) player, new EmptyBlockHit());
                     return switch (use) {
                         case FAIL -> UseResult.DENY;
                         case PASS -> UseResult.SKIP;
@@ -84,12 +84,12 @@ public class QuantumPlatform implements IPlatform {
                 public void onDestroy(@NotNull World world, @NotNull BlockVec breaking, @NotNull BlockState blockState, @Nullable Player breaker) {
                     super.onDestroy(world, breaking, blockState, breaker);
 
-                    factory.onBreak((IBlockStateApi) blockState, (IWorldApi) world, new dev.ultreon.quentangle.util.BlockVec(breaking.x, breaking.y, breaking.z), (IPlayerApi) breaker);
+                    factory.onBreak((IBlockState) blockState, (IWorld) world, new dev.ultreon.quentangle.util.BlockVec(breaking.x, breaking.y, breaking.z), (IPlayer) breaker);
                 }
 
                 @Override
                 public @NotNull BlockState onPlacedBy(@NotNull BlockState blockMeta, @NotNull BlockVec at, @NotNull UseItemContext context) {
-                    if (factory.onPlace((IBlockStateApi) blockMeta, (IWorldApi) context.world(), new dev.ultreon.quentangle.util.BlockVec(at.x, at.y, at.z), (IPlayerApi) context.player())) {
+                    if (factory.onPlace((IBlockState) blockMeta, (IWorld) context.world(), new dev.ultreon.quentangle.util.BlockVec(at.x, at.y, at.z), (IPlayer) context.player())) {
                         return blockMeta;
                     } else {
                         return Blocks.AIR.getDefaultState();
@@ -100,8 +100,8 @@ public class QuantumPlatform implements IPlatform {
     };
     private final IItemsApi itemsApi = new IItemsApi() {
         @Override
-        public IItemApi getAir() {
-            return (IItemApi) Items.AIR;
+        public IItem getAir() {
+            return (IItem) Items.AIR;
         }
     };
 
@@ -202,7 +202,7 @@ public class QuantumPlatform implements IPlatform {
     }
 
     @Override
-    public IBlocksApi getBlocksApi() {
+    public IBlocks getBlocksApi() {
         return blocksApi;
     }
 

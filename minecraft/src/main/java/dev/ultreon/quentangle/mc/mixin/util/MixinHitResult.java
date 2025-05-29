@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(HitResult.class)
-public abstract class MixinHitResult implements IHitApi {
+public abstract class MixinHitResult implements IHit {
     @Shadow @Final protected Vec3 location;
 
     @Override

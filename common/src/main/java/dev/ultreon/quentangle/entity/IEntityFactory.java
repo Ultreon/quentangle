@@ -1,9 +1,9 @@
 package dev.ultreon.quentangle.entity;
 
-import dev.ultreon.quentangle.api.player.IPlayerApi;
+import dev.ultreon.quentangle.api.player.IPlayer;
 import dev.ultreon.quentangle.util.InteractResult;
 
 public interface IEntityFactory {
-    InteractResult interact(IPlayerApi player);
+    InteractResult interact(IPlayer player);
     boolean onSpawn();
 }

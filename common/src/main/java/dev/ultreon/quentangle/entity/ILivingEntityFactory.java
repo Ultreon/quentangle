@@ -1,8 +1,8 @@
 package dev.ultreon.quentangle.entity;
 
-import dev.ultreon.quentangle.api.entity.IEntityApi;
+import dev.ultreon.quentangle.api.entity.IEntity;
 
 public interface ILivingEntityFactory extends IEntityFactory {
-    boolean onHurt(IEntityApi player, float damage);
+    boolean onHurt(IEntity player, float damage);
     boolean onDeath();
 }

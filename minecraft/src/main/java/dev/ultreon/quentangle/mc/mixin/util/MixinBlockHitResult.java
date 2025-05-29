@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BlockHitResult.class)
-public abstract class MixinBlockHitResult extends HitResult implements IBlockHitApi {
+public abstract class MixinBlockHitResult extends HitResult implements IBlockHit {
     @Shadow public abstract BlockPos getBlockPos();
 
     @Shadow @Final private net.minecraft.core.Direction direction;

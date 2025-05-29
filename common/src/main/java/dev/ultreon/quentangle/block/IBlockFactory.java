@@ -1,16 +1,16 @@
 package dev.ultreon.quentangle.block;
 
-import dev.ultreon.quentangle.api.block.IBlockStateApi;
-import dev.ultreon.quentangle.api.player.IPlayerApi;
-import dev.ultreon.quentangle.util.IBlockHitApi;
+import dev.ultreon.quentangle.api.block.IBlockState;
+import dev.ultreon.quentangle.api.player.IPlayer;
+import dev.ultreon.quentangle.util.IBlockHit;
 import dev.ultreon.quentangle.util.IPos;
-import dev.ultreon.quentangle.api.world.IWorldApi;
+import dev.ultreon.quentangle.api.world.IWorld;
 import dev.ultreon.quentangle.util.InteractResult;
 
 public interface IBlockFactory {
 
-    InteractResult use(IBlockStateApi state, IWorldApi world, IPos pos, IPlayerApi player, IBlockHitApi hit);
+    InteractResult use(IBlockState state, IWorld world, IPos pos, IPlayer player, IBlockHit hit);
 
-    boolean onBreak(IBlockStateApi state, IWorldApi world, IPos pos, IPlayerApi player);
-    boolean onPlace(IBlockStateApi state, IWorldApi world, IPos pos, IPlayerApi player);
+    boolean onBreak(IBlockState state, IWorld world, IPos pos, IPlayer player);
+    boolean onPlace(IBlockState state, IWorld world, IPos pos, IPlayer player);
 }

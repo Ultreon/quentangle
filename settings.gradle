@@ -48,3 +48,4 @@ rootProject.name = 'quentangle'
 include('common', 'minecraft')
 include('fabric', 'neoforge', 'forge')
 include('quantum')
+include('terasology', 'terasology-fabric')

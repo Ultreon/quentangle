@@ -1,10 +1,10 @@
 package dev.ultreon.quentangle.mc.client.event;
 
-import dev.ultreon.quentangle.client.gui.IScreenApi;
+import dev.ultreon.quentangle.client.gui.IScreen;
 import net.minecraft.client.Minecraft;
 
 public interface ClientScreenEvent extends ClientEvent {
-    IScreenApi getScreen();
+    IScreen getScreen();
 
     @Override
     default Minecraft getClient() {

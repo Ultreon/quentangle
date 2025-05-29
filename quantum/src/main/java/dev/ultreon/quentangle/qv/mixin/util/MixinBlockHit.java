@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BlockHit.class)
-public abstract class MixinBlockHit implements IBlockHitApi {
+public abstract class MixinBlockHit implements IBlockHit {
     @Shadow protected dev.ultreon.quantum.world.Direction direction;
 
     @Shadow protected dev.ultreon.quantum.world.vec.BlockVec vec;

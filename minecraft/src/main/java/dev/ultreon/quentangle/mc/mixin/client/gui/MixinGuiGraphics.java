@@ -1,7 +1,7 @@
 package dev.ultreon.quentangle.mc.mixin.client.gui;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import dev.ultreon.quentangle.api.client.gui.IGuiRendererApi;
+import dev.ultreon.quentangle.api.client.gui.IGuiRenderer;
 import dev.ultreon.quentangle.registry.INamespaceID;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(GuiGraphics.class)
-public abstract class MixinGuiGraphics implements IGuiRendererApi {
+public abstract class MixinGuiGraphics implements IGuiRenderer {
 
     @Shadow public abstract void blit(ResourceLocation atlasLocation, int x, int y, int uOffset, int vOffset, int uWidth, int vHeight);
 
@@ -118,7 +118,7 @@ public abstract class MixinGuiGraphics implements IGuiRendererApi {
     }
 
     @Override
-    public void quent$drawBackground(IGuiRendererApi renderer, int mouseX, int mouseY, float delta) {
+    public void quent$drawBackground(IGuiRenderer renderer, int mouseX, int mouseY, float delta) {
         Screen screen = Minecraft.getInstance().screen;
         if (screen == null) throw new IllegalStateException("Cannot draw background without a screen!");
 
