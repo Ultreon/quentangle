@@ -1,0 +1,33 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.ultreon.quentangle.qv.mixin",
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "block.MixinBlock",
+    "entity.MixinEntity",
+    "entity.MixinLivingEntity",
+    "entity.MixinPlayer",
+    "item.MixinInventory",
+    "item.MixinItemStack",
+    "text.MixinMutableText",
+    "text.MixinTextObject",
+    "util.MixinBlockHit",
+    "util.MixinNamespaceID",
+    "world.MixinServerWorld",
+    "world.MixinWorld"
+  ],
+  "client": [
+    "accessor.ScreenAccessor",
+    "client.MixinClientWorld",
+    "client.MixinQuantumClient",
+    "client.MixinTitleScreen",
+    "client.gui.MixinRenderer",
+    "world.MixinClientWorld"
+  ],
+  "server": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

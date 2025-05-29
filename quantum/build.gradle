@@ -1,0 +1,39 @@
+plugins {
+    id 'multiloader-game'
+}
+
+repositories {
+    maven { url "https://maven.fabricmc.net/" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://oss.sonatype.org/content/repositories/releases/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/releases/' }
+}
+
+dependencies {
+    implementation "dev.ultreon.quantum:quantum-client:${quantum_version}"
+    implementation "dev.ultreon.quantum:quantum-desktop:${quantum_version}"
+    implementation "dev.ultreon.quantum:quantum-server:${quantum_version}"
+}
+
+mkdir 'run'
+
+tasks.register("runClient", JavaExec) {
+    dependsOn classes
+    mainClass = "net.fabricmc.loader.impl.launch.knot.KnotClient"
+    classpath = sourceSets.main.runtimeClasspath + sourceSets.main.output
+
+    if (System.getProperty("os.name").contains("Mac")) {
+        jvmArgs "-XstartOnFirstThread", "-Dfabric.development=true"
+    }
+
+    workingDir = file("run")
+}
+
+tasks.register("runServer", JavaExec) {
+    dependsOn classes
+    mainClass = "net.fabricmc.loader.impl.launch.knot.KnotServer"
+    classpath = sourceSets.main.runtimeClasspath + sourceSets.main.output
+
+    workingDir = file("run")
+}

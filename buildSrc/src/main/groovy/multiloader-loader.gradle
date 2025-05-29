@@ -1,0 +1,26 @@
+plugins {
+    id 'multiloader-game'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += rootProject.file('minecraft/src/main/java').path
+        }
+    }
+    main {
+        resources {
+            srcDirs += rootProject.file('minecraft/src/main/resources').path
+        }
+    }
+}
+
+configurations {
+    minecraftJava {
+        canBeResolved = true
+    }
+    minecraftResources {
+        canBeResolved = true
+    }
+}
+
